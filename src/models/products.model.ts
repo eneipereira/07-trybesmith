@@ -1,8 +1,16 @@
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { AddProduct, Product } from '../types';
 import db from './connection';
 
 const productsModel = {
+  async getAll(): Promise<Product[]> {
+    const sql = 'select * from Trybesmith.Products;';
+  
+    const [products] = await db.query<RowDataPacket[]>(sql);
+  
+    return products as Product[];
+  },
+  
   async add(data: AddProduct): Promise<Product> {
     const { name, amount, orderId } = data;
 
