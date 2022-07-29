@@ -1,6 +1,7 @@
 import app from './app';
+import vars from './vars';
 
-const PORT = 3000;
+const PORT = vars.apiPort;
 
 const server = app.listen(PORT, () => console.log(
   `Server is running on PORT: ${PORT}`,
