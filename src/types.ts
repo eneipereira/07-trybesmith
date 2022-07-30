@@ -20,3 +20,15 @@ export type User = Indexable & {
 export type AddUser = Omit<User, 'id'>;
 
 export type NewUser = Omit<User, 'password'>;
+
+export type Order = Indexable & {
+  userId: number,
+};
+
+export type PartialOrder = Order & {
+  productsIds: string,
+};
+
+export type FinalOrder = Order & {
+  productsIds: Array<number>,
+};
