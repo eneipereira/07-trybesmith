@@ -1,5 +1,5 @@
-import { ResultSetHeader } from 'mysql2';
-import { AddUser, NewUser } from '../types';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { AddUser, Login, NewUser, User } from '../types';
 import db from './connection';
 
 const usersModel = {
@@ -14,6 +14,16 @@ const usersModel = {
     const [{ insertId }] = await db.query<ResultSetHeader>(sql, values);
 
     return { id: insertId, username, classe, level } as NewUser;
+  },
+
+  async getByUser(user: Login): Promise<User> {
+    const { username } = user;
+
+    const sql = 'select * from Trybesmith.Users where username = ?';
+
+    const [[result]] = await db.query<RowDataPacket[]>(sql, [username]);
+
+    return result as User;
   },
 };
 

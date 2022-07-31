@@ -32,3 +32,7 @@ export type PartialOrder = Order & {
 export type FinalOrder = Order & {
   productsIds: Array<number>,
 };
+
+export type Login = Pick<User, 'username' | 'password'>;
+
+export type Payload = Pick<User, 'id' | 'username'>;
