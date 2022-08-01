@@ -1,7 +1,20 @@
+import Joi from 'joi';
 import productsModel from '../models/products.model';
 import { AddProduct, Product } from '../types';
+import runSchema from './runSchema';
 
 const productsService = {
+  async validateBodyAdd(body: Product): Promise<Product> {
+    const result = runSchema(Joi.object<Product>({
+      name: Joi.string().required().min(3),
+      amount: Joi.string().required().min(3),
+    }).messages({
+      'string.empty': '{{#label}} length must be at least 3 characters long',
+    }))(body);
+
+    return result;
+  },
+
   async getAll(): Promise<Product[]> {
     const products = await productsModel.getAll();
 

@@ -10,7 +10,9 @@ const productsController = {
   },
 
   async add(req: Request, res: Response) {
-    const newProduct = await productsService.add(req.body);
+    const data = await productsService.validateBodyAdd(req.body);
+
+    const newProduct = await productsService.add(data);
 
     res.status(StatusCodes.CREATED).json(newProduct);
   },
