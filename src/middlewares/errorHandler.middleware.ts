@@ -11,7 +11,13 @@ const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunct
   
   let status = errors[name];
 
-  if (message.includes('string') || message.includes('length')) {
+  const messages = ['string', 'length', 'number', 'greater'];
+
+  const include = messages
+    .map((msg) => message.includes(msg))
+    .some((each) => each);
+
+  if (include) {
     status = errors.UnprocessableEntityError;
   }
 

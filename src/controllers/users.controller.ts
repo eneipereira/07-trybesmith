@@ -5,7 +5,9 @@ import usersService from '../services/users.service';
 
 const usersController = {
   async add(req: Request, res: Response) {
-    const newUser = await usersService.add(req.body);
+    const data = await usersService.validateBodyAdd(req.body);
+    
+    const newUser = await usersService.add(data);
 
     const token = await loginService.makeToken(newUser);
 

@@ -9,7 +9,7 @@ const productsService = {
       name: Joi.string().required().min(3),
       amount: Joi.string().required().min(3),
     }).messages({
-      'string.empty': '{{#label}} length must be at least 3 characters long',
+      'string.empty': '{{#label}} is required',
     }))(body);
 
     return result;
