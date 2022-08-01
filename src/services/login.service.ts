@@ -19,10 +19,24 @@ const loginService = {
     return result;
   },
 
-  async makeToken(user: NewUser | Payload) {
+  async makeToken(user: NewUser | Payload): Promise<string> {
     const token = jwt.sign(user, secret);
 
     return token;
+  },
+
+  async readToken(token: string): Promise<Payload> {
+    const payload = jwt.verify(token, secret, (err, decoded) => {
+      if (!token) {
+        throw new jwt.JsonWebTokenError('Token not found');
+      }
+      if (err && (err.message.includes('invalid') || err.message.includes('malformed'))) {
+        throw new jwt.JsonWebTokenError('Invalid token');
+      }
+      return decoded;
+    });
+
+    return payload as unknown as Payload;
   },
 };
 

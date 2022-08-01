@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 const errors: Record<string, number> = {
   ValidationError: 400,
+  JsonWebTokenError: 401,
   UnauthorizedError: 401,
   UnprocessableEntityError: 422,
 };
@@ -11,7 +12,7 @@ const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunct
   
   let status = errors[name];
 
-  const messages = ['string', 'length', 'number', 'greater'];
+  const messages = ['string', 'length', 'number', 'greater', 'array', 'include'];
 
   const include = messages
     .map((msg) => message.includes(msg))

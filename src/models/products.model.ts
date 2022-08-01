@@ -34,6 +34,12 @@ const productsModel = {
 
     return { id: insertId, ...data };
   },
+
+  async edit(orderId: number, productId: number): Promise<void> {
+    const sql = 'update Trybesmith.Products set orderId = ? where id = ?';
+
+    await db.query(sql, [orderId, productId]);
+  },
 };
 
 export default productsModel;

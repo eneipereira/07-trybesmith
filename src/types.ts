@@ -25,6 +25,8 @@ export type Order = Indexable & {
   userId: number,
 };
 
+export type AddOrder = Omit<FinalOrder, keyof Order>;
+
 export type PartialOrder = Order & {
   productsIds: string,
 };

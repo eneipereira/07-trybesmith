@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { PartialOrder } from '../types';
 import db from './connection';
 
@@ -12,6 +12,14 @@ const ordersModel = {
     const [orders] = await db.query<RowDataPacket[]>(sql);
 
     return orders as PartialOrder[];
+  },
+
+  async add(userId: number): Promise<number> {
+    const sql = 'insert into Trybesmith.Orders (userId) values (?)';
+
+    const [{ insertId }] = await db.query<ResultSetHeader>(sql, [userId]);
+
+    return insertId;
   },
 };
 
